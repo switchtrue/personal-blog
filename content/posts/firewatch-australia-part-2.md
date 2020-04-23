@@ -11,7 +11,7 @@ series = []
 +++
 
 {{< seriesbanner >}}
-This is part 1 in a series of 3 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. Check out the
+This is part 2 in a series of 4 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. Check out the
 [introduction]({{< ref "/posts/firewatch-australia-introduction.md" >}}) or take a look at the [next
 post on building the app]({{< ref "/posts/firewatch-australia-part-3.md" >}}) to learn more.
 {{< /seriesbanner >}}

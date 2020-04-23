@@ -1,5 +1,5 @@
 +++
-draft = true
+draft = false
 date = 2020-04-22T20:23:30+10:00
 title = "Building Firewatch Australia - Introduction"
 description = ""
@@ -11,7 +11,7 @@ series = []
 +++
 
 {{< seriesbanner >}}
-This is the introduction of a series of 3 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. Take a look at the [next post on the data processing pipelines]({{< ref "/posts/firewatch-australia-part-1.md" >}}) to learn more.
+This is the introduction of a series of 4 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. Take a look at the [next post on the data processing pipelines]({{< ref "/posts/firewatch-australia-part-1.md" >}}) to learn more.
 {{< /seriesbanner >}}
 
 ---
