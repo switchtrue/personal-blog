@@ -18,7 +18,7 @@ disqusShortname = "yourdiscussshortname"
 #    info = "CTO at Reposit Power"
     description = "Mike Leonard's personal blog"
     keywords = "blog,developer,personal,cto,"
-#    avatarurl = "images/avatar.jpg"
+    avatarurl = "images/avatar.jpg"
 
     favicon_32 = "/img/favicon-32x32.png"
     favicon_16 = "/img/favicon-16x16.png"
