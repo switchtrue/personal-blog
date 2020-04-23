@@ -17,7 +17,7 @@ This is the introduction of a series of 4 posts on building the [Firewatch Austr
 ---
 
 In December 2019 my parents travelled accross the world from the UK to Australia paying me a visit for the first time in 8 years.
-We had an intense few weeks planned travelling the east coast from Cairns to Gold Coast to Sydney to Narooma. During this time the **[bushfires hit hard](TODO LINK)** taking many lives and properties in the **[worst bushfire season Australia has ever seen](TODO LINK)**. We were unsure whether the planned trip could be completed safely and I spent a lot of time switching between different apps and websites trying to obtain data on active fires and road closures.
+We had an intense few weeks planned travelling the east coast from Cairns to Gold Coast to Sydney to Narooma. During this time the [bushfires hit hard](https://en.wikipedia.org/wiki/2019%E2%80%9320_Australian_bushfire_season) taking many lives and properties in the [worst bushfire season Australia has ever seen](https://www.abc.net.au/news/science/2020-03-05/bushfire-crisis-five-big-numbers/12007716). We were unsure whether the planned trip could be completed safely and I spent a lot of time switching between different apps and websites trying to obtain data on active fires and road closures.
 
 Whilst flicking between these various apps I realised that most of the data was open and I could pull
 them together into a single source to make my life easier. If it was useful to me it might very well
