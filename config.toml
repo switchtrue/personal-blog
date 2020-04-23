@@ -1,4 +1,4 @@
-baseurl = "https://my-hugo-project-2.switchtrue.now.sh/"
+baseurl = "/"
 title = "Mike Leonard"
 theme = "hugo-coder"
 languagecode = "en"
