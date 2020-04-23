@@ -1,0 +1,18 @@
+.center {
+  text-align: center;
+}
+
+.content article p {
+  text-align: left;
+  hyphens: initial;
+}
+
+.seriesbanner {
+  background-color: #eee;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-left-width: 4px;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
