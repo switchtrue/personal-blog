@@ -3,11 +3,7 @@ draft = true
 date = 2020-04-22T20:31:24+10:00
 title = "Building Firewatch Australia, Part 3 - The App"
 description = ""
-slug = ""
-tags = []
-categories = []
-externalLink = ""
-series = []
+tags = ["Firewatch Australia", "GCP", "serverless"]
 +++
 
 {{< seriesbanner >}}

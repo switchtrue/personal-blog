@@ -4,10 +4,8 @@ date = 2020-04-22T20:28:11+10:00
 title = "Building Firewatch Australia, Part 2 - Scaling on the Cheap"
 description = ""
 slug = ""
-tags = []
-categories = []
+tags = ["Firewatch Australia", "GCP", "serverless"]
 externalLink = ""
-series = []
 +++
 
 {{< seriesbanner >}}

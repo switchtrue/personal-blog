@@ -1,13 +1,9 @@
 +++
-draft = false
+draft = true
 date = 2020-04-22T20:24:33+10:00
 title = "Building Firewatch Australia, Part 1 - Data Processing"
-description = ""
-slug = ""
-tags = ["firewatch australia", "gcp", "serverless"]
-categories = []
-externalLink = ""
-series = []
+description = "How the data capture and processing pipelines work in a serverless Google Cloud setup for the Firewatch Australia app."
+tags = ["Firewatch Australia", "GCP", "serverless"]
 +++
 
 {{< seriesbanner >}}

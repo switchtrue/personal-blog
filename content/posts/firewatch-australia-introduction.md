@@ -2,16 +2,12 @@
 draft = false
 date = 2020-04-22T20:23:30+10:00
 title = "Building Firewatch Australia - Introduction"
-description = ""
-slug = ""
-tags = []
-categories = []
-externalLink = ""
-series = []
+description = "Introduction to Building the Firewatch Australia App detail the architectural choices of its design."
+tags = ["Firewatch Australia", "GCP", "serverless"]
 +++
 
 {{< seriesbanner >}}
-This is the introduction of a series of 4 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. Take a look at the [next post on the data processing pipelines]({{< ref "/posts/firewatch-australia-part-1.md" >}}) to learn more.
+This is the introduction of a series of 4 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. The next posts will be released over the coming days.
 {{< /seriesbanner >}}
 
 ---
@@ -36,8 +32,9 @@ the Top Charts on the App Store for reference apps even beating out the Bible!
       src="/images/firewatch-app-store-top-charts.png"
       alt="Image of app store top chart listing showing Firewatch Australia in the number 3 spot." >}}
 
-This series of posts covers the tech stack used to build Firewatch Australia including:
+This series of posts will cover the tech stack used to build Firewatch Australia including:
 
-- [Part 1 Data Processing]({{< ref "/posts/firewatch-australia-part-1.md" >}}) - the serverless backend data processing pipelines on [GCP](cloud.google.com)
-- [Part 2 Scaling on the Cheap]({{< ref "/posts/firewatch-australia-part-2.md" >}}) - serving the data efficiently and cost effectively with GCP and [Cloudflare](https://www.cloudflare.com/)
-- [Part 3 The App]({{< ref "/posts/firewatch-australia-part-3.md" >}}) - building the app itself with [Expo](http://expo.io/)
+- Part 1 - Data Processing - the serverless backend data processing pipelines on [GCP](cloud.google.com)
+- Part 2 - Scaling on the Cheap - serving the data efficiently and cost effectively with GCP and [Cloudflare](https://www.cloudflare.com/)
+- Part 3 - The App - building the app itself with [Expo](http://expo.io/)
+- Part 3 - Monitoring - super quick monitoring and alerts with [Stackdriver/Operations](https://cloud.google.com/products/operations)
