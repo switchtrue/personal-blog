@@ -1,6 +1,6 @@
 +++
 draft = false
-date = 2020-04-22T20:23:30+10:00
+date = 2020-04-24T17:00:00+10:00
 title = "Building Firewatch Australia - Introduction"
 description = "Introduction to Building the Firewatch Australia App detail the architectural choices of its design."
 tags = ["Firewatch Australia", "GCP", "serverless"]
