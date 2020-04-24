@@ -4,7 +4,7 @@ date = 2020-04-22T20:24:33+10:00
 title = "Building Firewatch Australia, Part 1 - Data Processing"
 description = ""
 slug = ""
-tags = []
+tags = ["firewatch australia", "gcp", "serverless"]
 categories = []
 externalLink = ""
 series = []
@@ -21,7 +21,7 @@ post about scaling on the cheap]({{< ref "/posts/firewatch-australia-part-2.md" 
 When I first started building Firewatch Australia I was very much building the plane whilst flying it.
 I had a few goals in mind but didn't know exactly how they would manifest or how I would implement
 them. One early featured I knew I wanted was a visual history of each fire showing it's progression.
-This seemed important to me so that you could better understand the speed at whhich a fire is
+This seemed important to me so that you could better understand the speed at which a fire is
 spreading or if it has slowed down.
 
 The RFS feed only offers the current size and shape of the fires so in order to achieve this I
@@ -32,12 +32,14 @@ available when the app launched.
 {{< video
       class="center"
       src="/videos/firewatch-australia-timelapse.mp4"
-      label="Video showing the timelapse view in the Firewatch Australia app" >}}
+      caption="Video of the app showing a timelapse of the Clyde Mountain Fire progression over 5 days." >}}
 
 # Gathering Data
 
-I wanted to go serverless for the whole architecture for various reasons including speed, scale and
-price. I also wanted to use [GCP][1] as thats where I'm most comfortable.
+I wanted to go serverless for the whole architecture for various reasons but mostly time to market
+(even though it's free!) - I knew I needed to get this app out ASAP for it to be useful to people.
+No servers to setup or manage is a real time saver it means you can spend all your time writing code
+and adding features. I also wanted to use [GCP][1] as thats where I'm most comfortable.
 
 Google Clouds serverless compute product is simply called [Cloud Functions][2] and pretty much does
 what it says on the tin - you upload individual functions to run and they can be triggered through
@@ -58,6 +60,7 @@ has we write the new data and update the hash.
 {{< image
       class="center"
       src="/images/firewatch-incidents-bucket.png"
+      caption="Listing of a Cloud Storage bucket for a single fire showing one file for each change in its history and the md5 hash."
       alt="Image the contents of a Cloud Storage bucket showing a fires history of changes and the md5 hash file" >}}
 
 Next I needed a way to trigger this periodically. Google have a product called [Cloud Scheduler][7]
@@ -73,11 +76,12 @@ of `*/5 * * * *` does this and I made the target the HTTPS endpoint of the Cloud
 {{< image
       class="center"
       src="/images/firewatch-cloud-scheduler.png"
-      alt="Screenshot of the configureation of the Google Cloud Scheduler job" >}}
+      caption="Screenshot of the configuration of the Google Cloud Scheduler job. Here you can see the crontab (with timezone 👍) and Cloud Function being used as a trigger."
+      alt="Screenshot of the configuration of the Google Cloud Scheduler job" >}}
 
 At this point I've deployed a single Cloud Function, scheduled it periodically and am starting to
-gather history into Cloud Storage. This was really very easy in a serverless world on GCP and I quite
-literally did it in a couple of hours whilst enjoying a couple of Christmas beers!
+gather history into Cloud Storage. This was really quick in a serverless world on GCP and I quite
+literally did it in a couple of hours whilst enjoying a few of Christmas beers!
 
 Having every distinct change for each fire being written to Cloud Storage periodically forms a
 really solid base for what comes next.

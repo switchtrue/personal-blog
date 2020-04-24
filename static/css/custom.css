@@ -20,3 +20,9 @@
 .footer {
   font-size: 1rem;
 }
+
+.image-caption,
+.video-caption {
+  font-size: 0.8em;
+  opacity: 0.8;
+}

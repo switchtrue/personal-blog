@@ -1,6 +1,7 @@
 {{ $src := .Get "src" }}
 {{ $alt := .Get "alt" }}
 {{ $class := .Get "class" }}
+{{ $caption := .Get "caption" }}
 
 <div class="{{ $class }}">
   <img
@@ -8,4 +9,7 @@
     alt="{{ $alt }}"
     decoding="async"
   />
+  {{ if $caption}}
+    <div class="image-caption">{{ $caption }}</div>
+  {{ end }}
 </div>

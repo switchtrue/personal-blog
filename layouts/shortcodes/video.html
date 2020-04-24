@@ -1,9 +1,13 @@
 {{ $src := .Get "src" }}
 {{ $class := .Get "class" }}
+{{ $caption := .Get "caption" }}
 
 <div class="{{ $class }}">
   <video width="300" controls>
     <source src="{{ $src }}" type="video/mp4">
     Your browser does not support the video tag.
   </video>
+  {{ if $caption}}
+    <div class="video-caption">{{ $caption }}</div>
+  {{ end }}
 </div>
