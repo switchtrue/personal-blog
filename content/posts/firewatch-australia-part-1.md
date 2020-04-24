@@ -20,13 +20,13 @@ post about scaling on the cheap]({{< ref "/posts/firewatch-australia-part-2.md" 
 
 When I first started building Firewatch Australia I was very much building the plane whilst flying it.
 I had a few goals in mind but didn't know exactly how they would manifest or how I would implement
-them. One early featured I knew I wanted was a visual history of each fire showing it's progression.
+them. One early featured I knew I wanted was a visual history of each fire showing its progression.
 This seemed important to me so that you could better understand the speed at which a fire is
 spreading or if it has slowed down.
 
 The RFS feed only offers the current size and shape of the fires so in order to achieve this I
 needed to start scraping and saving the data before deciding how I was going to manage and serve
-it long term. I was also going to need to start gathering the data ASAP so that history would be
+it long term. I also needed to start gathering the data ASAP so that history would be
 available when the app launched.
 
 {{< video
@@ -37,12 +37,12 @@ available when the app launched.
 # Gathering Data
 
 I wanted to go serverless for the whole architecture for various reasons but mostly time to market
-(even though it's free!) - I knew I needed to get this app out ASAP for it to be useful to people.
-No servers to setup or manage is a real time saver it means you can spend all your time writing code
+(even though it's free!) - I needed to get this app out ASAP for it to be useful to people.
+No servers to setup is a real time saver and it means you can spend all your time writing code
 and adding features. I also wanted to use [GCP][1] as thats where I'm most comfortable.
 
 Google Clouds serverless compute product is simply called [Cloud Functions][2] and pretty much does
-what it says on the tin - you upload individual functions to run and they can be triggered through
+what it says on the tin - you deploy individual functions to run and they can be triggered through
 a variety of sources including HTTP endpoints and events within GCP. No servers to mangage and you
 pay per 100ms of execution with a generous perpetual [free teir][3].
 
@@ -51,10 +51,10 @@ is [GeoJSON][4] and contains a list of all the currently active fires. I wanted 
 each fire was captured seperately and only make a new record when it changed - I didn't want storage
 costs to blow out by storing the same data everytime it was fetched.
 
-To do this the Cloud Function split the data up into each fire and generated an md5 hash of the
+To do this the Cloud Function splits the data up into each fire and generates an md5 hash of the
 GeoJSON for that fire. The GeoJSON for each individual fire and its md5 hash we then written directly
 to [Cloud Storage][5] using the [python client][6]. The next time the GeoJSON is fetched the hash
-of the latest data can be compared with that in storage to determine if the fire has changed, if it
+of the latest data is compared with that in storage to determine if the fire has changed, if it
 has we write the new data and update the hash.
 
 {{< image
@@ -70,8 +70,13 @@ should run and provide something to trigger such as an HTTP endpoint which is pe
 Functions. As an added bonus you can even specify a timezone along with your crontab so, if you're
 lazy like me, you don't have to do the timezone conversions yourself.
 
-I wanted to refresh the data every 5 mins so that it was never too far out of date. A simple crontab
-of `*/5 * * * *` does this and I made the target the HTTPS endpoint of the Cloud Function.
+It doesn't hurt that you get [3 free Scheduler jobs][8] and only 10c per job after that - thats 10c
+per job, not per exectution, so if you run it once a month or thousands of times it still only costs
+10c. Note that you do pay for any Cloud Function resources you consume if a Cloud Function is your
+target.
+
+I wanted to refresh the data every 5 minutes so that it was never too far out of date. A simple
+crontab of `*/5 * * * *` does this and I made the target the HTTPS endpoint of the Cloud Function.
 
 {{< image
       class="center"
@@ -110,3 +115,4 @@ Replaying data with gsutil
 [5]: https://cloud.google.com/storage
 [6]: https://googleapis.dev/python/storage/latest/client.html
 [7]: https://cloud.google.com/scheduler
+[8]: https://cloud.google.com/scheduler/pricing
