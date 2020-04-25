@@ -1,6 +1,6 @@
 +++
 draft = true
-date = 2020-04-22T20:28:11+10:00
+date = 2020-04-25T01:00:00+10:00
 title = "Building Firewatch Australia, Part 2 - Scaling on the Cheap"
 description = ""
 slug = ""
@@ -9,7 +9,7 @@ externalLink = ""
 +++
 
 {{< seriesbanner >}}
-This is part 2 in a series of 4 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. Check out the
+[Firewatch Australia](https://firewatchaus.com/) is a free app released over the 2019/20 Australian Bushfire season to help track bushfires. This is part 2 in a series of 5 posts on building the app. Check out the
 [introduction]({{< ref "/posts/firewatch-australia-introduction.md" >}}) or take a look at the [next
 post on building the app]({{< ref "/posts/firewatch-australia-part-3.md" >}}) to learn more.
 {{< /seriesbanner >}}

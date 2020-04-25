@@ -7,7 +7,7 @@ tags = ["Firewatch Australia", "GCP", "serverless"]
 +++
 
 {{< seriesbanner >}}
-This is the introduction of a series of 4 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. The next posts will be released over the coming days.
+This is the introduction of a series of 5 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. The next posts will be released over the coming days.
 {{< /seriesbanner >}}
 
 ---
@@ -38,3 +38,4 @@ This series of posts will cover the tech stack used to build Firewatch Australia
 - Part 2 - Scaling on the Cheap - serving the data efficiently and cost effectively with GCP and [Cloudflare](https://www.cloudflare.com/)
 - Part 3 - The App - building the app itself with [Expo](http://expo.io/)
 - Part 4 - Monitoring - super quick monitoring and alerts with [Stackdriver/Operations](https://cloud.google.com/products/operations)
+- Part 5 - The Data - details on all the data sources used by Firewatch Australia

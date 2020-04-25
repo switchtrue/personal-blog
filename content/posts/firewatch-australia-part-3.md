@@ -1,13 +1,13 @@
 +++
 draft = true
-date = 2020-04-22T20:31:24+10:00
+date = 2020-04-25T02:00:00+10:00
 title = "Building Firewatch Australia, Part 3 - The App"
 description = ""
 tags = ["Firewatch Australia", "GCP", "serverless"]
 +++
 
 {{< seriesbanner >}}
-This is part 3 in a series of 3 posts on building the [Firewatch Australia](https://firewatchaus.com/) app.  Check out the
+[Firewatch Australia](https://firewatchaus.com/) is a free app released over the 2019/20 Australian Bushfire season to help track bushfires. This is part 3 in a series of 5 posts on building the app. Check out the
 [introduction]({{< ref "/posts/firewatch-australia-introduction.md" >}}) or take a look at the [next
 post on monitoring]({{< ref "/posts/firewatch-australia-part-4.md" >}}) to learn more.
 {{< /seriesbanner >}}

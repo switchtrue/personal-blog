@@ -1,22 +1,24 @@
 +++
 draft = true
-date = 2020-04-22T20:24:33+10:00
+date = 2020-04-25T00:00:00+10:00
 title = "Building Firewatch Australia, Part 1 - Data Processing"
 description = "How the data capture and processing pipelines work in a serverless Google Cloud setup for the Firewatch Australia app."
 tags = ["Firewatch Australia", "GCP", "serverless"]
 +++
 
 {{< seriesbanner >}}
-This is part 1 in a series of 4 posts on building the [Firewatch Australia](https://firewatchaus.com/) app. Check out the
-[introduction]({{< ref "/posts/firewatch-australia-introduction.md" >}}) or take a look at the [next
-post about scaling on the cheap]({{< ref "/posts/firewatch-australia-part-2.md" >}}) to learn more.
+[Firewatch Australia](https://firewatchaus.com/) is a free app released over the 2019/20 Australian
+Bushfire season to help track bushfires. This is part 1 in a series of 5 posts on building the app.
+Check out the [introduction]({{< ref "/posts/firewatch-australia-introduction.md" >}}) or take a
+look at the [next post about scaling on the cheap]({{< ref "/posts/firewatch-australia-part-2.md" >}})
+to learn more.
 {{< /seriesbanner >}}
 
 ---
 
 When I first started building Firewatch Australia I was very much building the plane whilst flying it.
 I had a few goals in mind but didn't know exactly how they would manifest or how I would implement
-them. One early featured I knew I wanted was a visual history of each fire showing its progression.
+them. One early feature I knew I wanted was a visual history of each fire showing its progression.
 This seemed important to me so that you could better understand the speed at which a fire is
 spreading or if it has slowed down.
 
@@ -89,20 +91,68 @@ really solid base for what comes next.
 
 # Processing Data
 
-cloud function
-bucket object create trigger
-firestore
+Cloud Function support more than just HTTP triggers, another super useful trigger is "Cloud Storage".
+This allows you to trigger a function based on an object event in a Cloud Storage Bucket - you can
+trigger a function when an object is created, deleted or archived.
 
-# Making Mistakes
+{{< image
+      class="center"
+      src="/images/firewatch-cloud-storage-trigger.png"
+      caption="Screenshot of a Cloud Function trigger configuration that fires when an object is created in a Cloud Storage Bucket."
+      alt="Screenshot a configuration for a Cloud Storage trigger for a Cloud Function" >}}
 
-Replaying data with gsutil
+Using this trigger type coupled with having each distinct change in Cloud Storage means I can process
+each change as it arrives. A Cloud Function receives the metadata about the newly created file (i.e.
+a brand new fire or a change to an existing fire), fetches that file from Cloud Storage procesess it
+into a format suitable for the app and stores it to [Cloud Firestore](https://cloud.google.com/firestore).
 
-- cloud functions
-- cloud scheduler
-- cloud storage
-- triggers
+Firestore is Googles serverless NoSQL document store product. It organises data in "documents" which
+is a set of fields with values and "collections" which is a group or list of documents. One nice
+feature is that collections can be nested in documents as "subcollections".
 
-- replay data with gsutil
+Processing the data from Cloud Storage and writing it to Firestore boils down the to the following steps:
+
+1) Check if the fire already exists in Firestore, if it doesn't then insert a new document in a
+   root-level collection called "incidents". Populate this document with some basic information.
+2) Each fire document has a "history" subcollection to contain all the changes over time. Insert
+   the lastest data into this subcollection indexed by the timestamp that the update occurred at.
+
+Using subcollections here has a couple of great advantages here. Firstly, the parent document can be
+kept small so when loading the main screen of the app we don't have to fetch the full history for
+every fire. Secondly, subcollections can be inserted into without having to fetch the parent document
+or the rest of the history subcollection. Some of these fires lasted for more than 2 months with
+regular updates of GeoJSON meaning that the documents were pretty big, not having to fetch them all
+the time was a big help.
+
+{{< image
+      class="center"
+      src="/images/firewatch-firestore-ui.png"
+      caption="Screenshot the Firestore UI showing some root-level collections on the left, a list of incidents/fires in the middle, and fields contained in an incident on the right. The right panel also shows the history subcollection at the top."
+      alt="Screenshot the Firestore UI" >}}
+
+## Why not go Straight to Firestore?
+
+This is a good question - why did I write to Cloud Storage first only to immediately read it and
+write it to FireStore? Couldn't I have gone direct to Firestore?
+
+That would have been an option, but as mentioned at the beginning I was very much figuring out what
+I was doing as I doing it. I didn't know the final schema for Firestore when I started. I was also
+not familiar with the RFS data feed nor with GeoJSON which meant if I did too much processing upfront
+I was nervous that something would change and it would all break. Storing the raw data first meant I
+could change my mind about processing and the Firestore schema and simply run the functions again
+on top of the raw data. This turned out to be a very robust solution.
+
+# Wrapping Up
+
+I really liked the simplicity of this solution - there are two functions with two distinct roles -
+one fetches data, the other processes it into something more useful. The triggers on Cloud Functions
+as well as Cloud Scheduler make this super simple and the whole thing runs reliably in severless
+environment.
+
+In the next post I'll be talking about how this data was served via APIs and how I managed scale on
+the cheap.
+
+
 
 [1]: http://cloud.google.com/
 [2]: https://cloud.google.com/functions
