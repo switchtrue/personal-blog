@@ -3,7 +3,7 @@ draft = true
 date = 2020-04-25T02:00:00+10:00
 title = "Building Firewatch Australia, Part 3 - The App"
 description = ""
-tags = ["Firewatch Australia", "GCP", "serverless"]
+tags = ["Firewatch Australia", "Expo"]
 +++
 
 {{< seriesbanner >}}

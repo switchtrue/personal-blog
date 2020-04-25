@@ -2,14 +2,16 @@
 draft = false
 date = 2020-04-25T00:00:00+10:00
 title = "Building Firewatch Australia, Part 1 - Data Processing"
-description = "How the data capture and processing pipelines work in a serverless Google Cloud setup for the Firewatch Australia app."
+description = "How the data capture and processing pipelines work in a serverless Google Cloud set up for the Firewatch Australia app."
 tags = ["Firewatch Australia", "GCP", "serverless"]
 +++
 
 {{< seriesbanner >}}
 [Firewatch Australia](https://firewatchaus.com/) is a free app released over the 2019-2020 Australian
 Bushfire season to help track bushfires. This is part 1 in a series of 5 posts on building the app.
-Check out the [introduction]({{< ref "/posts/firewatch-australia-introduction.md" >}}) to learn more.
+Check out the [introduction]({{< ref "/posts/firewatch-australia-introduction.md" >}}) or take a
+look at the [next post on Scaling on the Cheap]({{< ref "/posts/firewatch-australia-part-2.md" >}})
+to learn more.
 {{< /seriesbanner >}}
 
 ---
