@@ -153,8 +153,8 @@ one fetches data, the other processes it into something more useful. The trigger
 as well as Cloud Scheduler make this super simple and the whole thing runs reliably in severless
 environment. It's been running reliably now for about 4 months entirely untouched.
 
-In the next post I'll be talking about how this data was served via APIs (also Cloud Functions) and
-how I managed scale on the cheap.
+In the [next post]({{< ref "/posts/firewatch-australia-part-2.md" >}}) I'll be talking about how
+this data was served via APIs (also Cloud Functions) and how I managed scale on the cheap.
 
 
 

@@ -25,15 +25,15 @@ In the [previous post]({{< ref "/posts/firewatch-australia-part-1.md" >}}) I doc
 for gathering the data using [Google Cloud's][0] serverless [Cloud Functions][1] so it might not surprise you to know
 that I wanted to serve the data via a similar method. I used functions with HTTP triggers
 to return JSON which served as the API for the app. The functions themselves were pretty simple -
-they queried data from [Firestore][2] and returned it.
+they queried data from a [Firestore][2] collection and returned it.
 
 # Caching
 
 The data in Firewatch Australia is fairly static. Any given fire only tends to be updated every
-few hours or so, it depends on how quickly the fire is changing and all users are served the same
-data so they see the same list of fires. As such it's a great candidate for caching. The goal here
-is to serve as many requests as possible from a cache so that it's not constantly hitting the
-functions and the database incurring both time and cost.
+few hours or so by NSW RFS and all users are served the same data so they see the same list of fires.
+As such it's a great candidate for caching. The goal here is to serve as many requests as possible
+from a cache so that it's not constantly hitting the functions and the database incurring both time
+and cost.
 
 [Cloudflare][3] has a great caching service that is outrageously simple. There's really very little
 you have to do to set it up:
@@ -55,16 +55,17 @@ majority of requests are hitting the cache - roughly 92%.
       caption="Screenshot of the Cloudflare UI for a single day showing ~92% cache hit rate with a peak of 3100 requests per hour"
       alt="Screenshot of the Cloudflare UI for cached vs uncached requests" >}}
 
-Cloudflare have [edge nodes located all over the world][4] and, importantly for this app, across
-Australia. This means Cloudflare is also able to serve the content quickly by serving it from the
-location nearest the user. This network coupled with the fact we caching the data results in a very
-significant performance increase. In the screen shot below you can see its 2-3 time faster when
-hitting the Cloudflare-backed customer domain vs hitting the Cloud Function directly.
+Cloudflare has an extensive network with [edge nodes located all over the world][4] and,
+importantly for this app, across Australia. This means Cloudflare is able to serve the content
+quickly by serving it from the location nearest the user. This network coupled with the fact the data
+is cached results in a very significant performance increase. In the screen shot below you can see
+it's 2-3 time faster when hitting the Cloudflare-backed API (firewatchaus.com) vs hitting the Cloud
+Function directly.
 
 {{< image
       class="center"
       src="/images/firewatch-cloudfare-speed-test.jpg"
-      caption="Speed test of curling the Cloud Function vs the cached Cloudflare content. It saves about 3.6 seconds."
+      caption="Speed test of curling the Cloud Function (first request) vs the cached Cloudflare content (second request). It saves about 3.6 seconds of a 5.2 second request."
       alt="Commandline speed test showing an elapsed time of 5.234 second for the raw function and 1.619 second for the Cloudflare cache" >}}
 
 Remember, all I've had to do here is sign up to Cloudflare and configure my nameservers. There's
@@ -82,7 +83,7 @@ and [easily handles far more traffic][6] than my app.
 
 If requests do make it to Google Cloud then it's on a fully serverless stack. I would imagine the
 bottleneck would be Firestore but interestingly the documentation for Firestore doesn't mention
-limits on reads, but the [writes limits are 10,000 per second][7] which I don't think I'd ever
+limits on reads, however the [writes limits are 10,000 per second][7] which I don't think I'd ever
 exceed.
 
 This isn't a silver bullet either, the data in Firewatch Australia just happens to lend itself very
@@ -95,7 +96,8 @@ Cloud Functions with an HTTP trigger have a URL in the form:
     https://<compute-region>-<gcp-project-name>.cloudfunctions.net/<function-name>
 
 Because this URL is unique and contains the details to locate the function its kind of important.
-As such, Cloud Functions don't support a custom CNAME resolving to them, they fail with a 404.
+As such, Cloud Functions don't support a custom CNAME resolving to them, if you do try this then they
+will fail with a 404.
 
 Luckily, Google have a solution for this with Firebase functions. This is a little bit of extra work
 that I wish I didn't have to do but it's pretty quick and easy.
@@ -122,12 +124,10 @@ Example `firebase.json` configuration:
 }
 {{< / highlight >}}
 
-
-
 A (fairly big) downside to this is that I appear to be paying egress charges twice - once from the
 Cloud Functions to Firebase and again from Firebase to the internet (or Cloudflare in this case).
-I'm not sure if this is something specifically related to how I've set it up but I will
-investigate this in the future.
+I'm not sure if this is something specifically related to how I've set it up or if it's the norm but
+I will investigate this in the future.
 
 {{< image
       class="center"
@@ -142,12 +142,12 @@ investigate this in the future.
 > -- Phil Karlton
 
 I don't remember how I came up with the name "Firewatch Australia" but I don't think I spent a great
-deal of time on it. Fortunately, cache invalidation for this app is also pretty easy. Theres' a pretty
-clear trigger - when a fire is updated and stored in the database (see the previous post for more on
-this).
+deal of time on it. Fortunately, cache invalidation for this app is also pretty easy. There's a pretty
+clear trigger for invalidation - when a fire is updated and stored in the database (see the [previous
+post]({{< ref "/posts/firewatch-australia-part-1.md" >}}) for more on this).
 
 Cloudflare provides a simple API for invalidating certain URLs. This is nice because each time a fire
-changes I just need tio invalidate the endpoints for that fire and the full list of fires. All other
+changes I just need to invalidate the endpoints for that fire and the full list of fires. All other
 fires can remain in the cache. The request is as follows - you need to supply the zone-id as well as
 some authentication headers.
 
@@ -166,13 +166,15 @@ POST https://api.cloudflare.com/client/v4/zones/:zone-id/purge_cache
 
 The data in Firewatch Australia lent itself really nicely to a straight forward caching solution.
 Using Cloudflare for this was incredibly simple and easily achieved my original goal of trying to
-avoid as much traffic as possible hitting my Google Cloud infrastructure.
+avoid as much traffic as possible hitting my Google Cloud infrastructure and keep the bills low.
 
-I'm pretty happy to say that all this work to handle scale is completely unused right now. The number
-of users of the app has dropped to the low tens due to the excellent work our [Firies][8] put in
-bringing the bushfires under control - theres simply nothing in the app to see!
+I'm pretty happy to say that all this work to handle scale is completely redundant right now.
+The number of users of the app has dropped to the low tens due to the excellent work our [Firies][8]
+put in bringing the bushfires under control - there's simply nothing interesting in the app to see
+at the moment!
 
 In the next post I'll be talking about how the app itself was made using React Native and Expo.
+
 
 
 [0]: https://cloud.google.com/
