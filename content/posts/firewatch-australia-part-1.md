@@ -17,8 +17,8 @@ Check out the [introduction]({{< ref "/posts/firewatch-australia-introduction.md
 When I first started building Firewatch Australia I was very much building the plane whilst flying it.
 I had a few goals in mind but didn't know exactly how they would manifest or how I would implement
 them. One early feature I knew I wanted was a visual history of each fire showing its progression.
-This seemed important to me so that you could better understand the speed at which a fire is
-spreading or if it has slowed down.
+This seemed important to me so that the speed at which a fire is spreading or if it has slowed down
+could be better understood.
 
 The RFS feed only offers the current size and shape of the fires so in order to achieve this I
 needed to start scraping and saving the data before deciding how I was going to manage and serve
@@ -32,26 +32,26 @@ available when the app launched.
 
 # Gathering Data
 
-I wanted to go serverless for the whole architecture for various reasons but mostly time to market -
-I needed to get this app out ASAP for it to be useful to people. No servers to setup is a real time
-saver and it means you can spend all your time writing code and adding features. I also wanted to
-use [GCP][1] as that's where I'm most comfortable.
+I wanted to go serverless for the whole architecture for various reasons but mostly for time to
+market - I needed to get this app out ASAP for it to be useful to people. No servers to setup is a
+real time saver and it means I can spend all my time writing code and adding features. I also
+wanted to use [GCP][1] as that's where I'm most comfortable.
 
 Google Clouds serverless compute product is simply called [Cloud Functions][2] and pretty much does
 what it says on the tin - you deploy individual functions to run and they can be triggered through
-a variety of sources including HTTP endpoints and events within GCP. No servers to mangage and you
-pay per 100ms of execution with a generous perpetual [free teir][3].
+a variety of sources including HTTP endpoints and events within GCP. No servers to manage and you
+pay per 100ms of execution with a generous perpetual [free tier][3].
 
 I created a simple Cloud Function to make a request to the RFS feed and fetch the data. The response
 is [GeoJSON][4] and contains a list of all the currently active fires. I wanted to make sure that
-each fire was captured seperately and only make a new record when it changed - I didn't want storage
-costs to blow out by storing the same data everytime it was fetched.
+each fire was captured separately and only make a new record when it changed - I didn't want storage
+costs to blow out by storing the same data every time it was fetched.
 
 To do this the Cloud Function splits the data up into each fire and generates an md5 hash of the
-GeoJSON for that fire. The GeoJSON for each individual fire and its md5 hash we then written directly
+GeoJSON for that fire. The GeoJSON for each individual fire and its md5 hash are then written directly
 to [Cloud Storage][5] using the [python client][6]. The next time the GeoJSON is fetched the hash
 of the latest data is compared with that in storage to determine if the fire has changed, if it
-has I write the new data and update the hash.
+has the the new data is written and the hash is updated.
 
 {{< image
       class="center"
@@ -63,13 +63,13 @@ Next I needed a way to trigger this periodically. Google have a product called [
 which they describe as a "Fully managed cron job service". This is a really great service that often
 seems overlooked and little talked about. It allows you to specify a crontab syntax for when the job
 should run and provide something to trigger such as an HTTP endpoint which is perfect for Cloud
-Functions. As an added bonus you can even specify a timezone along with your crontab so, if you're
-lazy like me, you don't have to do the timezone conversions yourself.
+Functions. As an added bonus you can even specify a time zone along with your crontab so, if you're
+lazy like me, you don't have to do the time zone conversions yourself.
 
-It doesn't hurt that you get [3 free Scheduler jobs][8] and only 10c per job after that - that's 10c
-per job, not per exectution, so if you run it once a month or thousands of times it still only costs
-10c. Note that you do pay for any Cloud Function resources you consume if a Cloud Function is your
-target.
+It doesn't hurt that you get [3 free Scheduler jobs][8] and only 10 cents per job after that - that's
+10 cents per job, not per execution, so if you run it once a month or thousands of times it still
+only costs 10 cents. Note that you do pay for any Cloud Function resources you consume if a Cloud
+Function is your target.
 
 I wanted to refresh the data every 5 minutes so that it was never too far out of date. A simple
 crontab of `*/5 * * * *` does this and I made the target the HTTPS endpoint of the Cloud Function.
@@ -99,28 +99,29 @@ trigger when an object is created, deleted or archived.
       caption="Screenshot of a Cloud Function trigger configuration that fires when an object is created in a Cloud Storage Bucket."
       alt="Screenshot a configuration for a Cloud Storage trigger for a Cloud Function" >}}
 
-Using this trigger type coupled with having each distinct change in Cloud Storage means I can process
-each change as it arrives. A Cloud Function receives the metadata about the newly created file (i.e.
-a brand new fire or a change to an existing fire), fetches that file from Cloud Storage procesess it
-into a format suitable for the app and stores it to [Cloud Firestore](https://cloud.google.com/firestore).
+Using this trigger type coupled with having each distinct change in Cloud Storage means it can
+process each change as it arrives. A Cloud Function receives the metadata about the newly created
+file (i.e. a brand new fire or a change to an existing fire), fetches that file from Cloud Storage
+processes it into a format suitable for the app and stores it to [Cloud Firestore](https://cloud.google.com/firestore).
 
-Firestore is Googles serverless NoSQL document store product. It organises data in "documents" which
+Firestore is Google's serverless NoSQL document store product. It organises data in "documents" which
 is a set of fields with values (think JSON) and "collections" which is a group of similar documents.
 One nice feature is that collections can be nested in documents as "subcollections".
 
-Processing the data from Cloud Storage and writing it to Firestore boils down the to the following steps:
+Processing the data from Cloud Storage and writing it to Firestore boils down the to the following
+steps:
 
-1) Check if the fire already exists in Firestore, if it doesn't then insert a new document in a
+1. Check if the fire already exists in Firestore, if it doesn't then insert a new document in a
    root-level collection called "incidents". Populate this document with some basic information.
-2) Each fire document has a "history" subcollection to contain all the changes over time. Insert
+2. Each fire document has a "history" subcollection to contain all the changes over time. Insert
    the lastest data into this subcollection indexed by the timestamp that the update occurred at.
 
 Using subcollections for the history has a couple of great advantages. Firstly, the parent document
-can be kept small so when loading the main screen of the app we don't have to fetch the full history
+can be kept small so when loading the main screen of the app doesn't have to fetch the full history
 for every fire. Secondly, subcollections can be inserted into without having to fetch the parent
 document or the rest of the history subcollection. Some of these fires lasted for more than 2 months
 with regular updates of GeoJSON meaning that the documents were pretty big, not having to fetch them
-all the time was a big help.
+all the time was a huge help.
 
 {{< image
       class="center"
