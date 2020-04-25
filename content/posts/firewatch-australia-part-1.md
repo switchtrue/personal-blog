@@ -1,5 +1,5 @@
 +++
-draft = true
+draft = false
 date = 2020-04-25T00:00:00+10:00
 title = "Building Firewatch Australia, Part 1 - Data Processing"
 description = "How the data capture and processing pipelines work in a serverless Google Cloud setup for the Firewatch Australia app."
