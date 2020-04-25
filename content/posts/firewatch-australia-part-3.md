@@ -7,7 +7,7 @@ tags = ["Firewatch Australia", "GCP", "serverless"]
 +++
 
 {{< seriesbanner >}}
-[Firewatch Australia](https://firewatchaus.com/) is a free app released over the 2019/20 Australian Bushfire season to help track bushfires. This is part 3 in a series of 5 posts on building the app. Check out the
+[Firewatch Australia](https://firewatchaus.com/) is a free app released over the 2019-2020 Australian Bushfire season to help track bushfires. This is part 3 in a series of 5 posts on building the app. Check out the
 [introduction]({{< ref "/posts/firewatch-australia-introduction.md" >}}) or take a look at the [next
 post on monitoring]({{< ref "/posts/firewatch-australia-part-4.md" >}}) to learn more.
 {{< /seriesbanner >}}
