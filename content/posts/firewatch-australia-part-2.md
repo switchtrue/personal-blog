@@ -100,11 +100,13 @@ As such, Cloud Functions don't support a custom CNAME resolving to them, they fa
 Luckily, Google have a solution for this with Firebase functions. This is a little bit of extra work
 that I wish I didn't have to do but it's pretty quick and easy.
 
-1. Download the Firebase CLI - https://firebase.google.com/docs/cli
+1. Download the [Firebase CLI][9]
 2. Login to the CLI with `firebase login`
 3. Use `firebase init` to initialise a Firebase project
-4. Edit `firebase.json` to configure your functions as follows:
+4. Edit `firebase.json` to configure your functions. See the example below.
+5. Connect your [custom domain to Firebase][10]
 
+Example `firebase.json` configuration:
 {{< highlight json >}}
 {
   "hosting": {
@@ -120,7 +122,7 @@ that I wish I didn't have to do but it's pretty quick and easy.
 }
 {{< / highlight >}}
 
-5. Connect your custom domain to Firebase - https://firebase.google.com/docs/hosting/custom-domain
+
 
 A (fairly big) downside to this is that I appear to be paying egress charges twice - once from the
 Cloud Functions to Firebase and again from Firebase to the internet (or Cloudflare in this case).
@@ -182,3 +184,5 @@ In the next post I'll be talking about how the app itself was made using React N
 [6]: https://www.troyhunt.com/serverless-to-the-max-doing-big-things-for-small-dollars-with-cloudflare-workers-and-azure-functions/
 [7]: https://cloud.google.com/firestore/quotas#writes_and_transactions
 [8]: https://www.urbandictionary.com/define.php?term=firies
+[9]: https://firebase.google.com/docs/cli
+[10]: https://firebase.google.com/docs/hosting/custom-domain
