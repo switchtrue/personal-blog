@@ -36,15 +36,15 @@ from a cache so that it's not constantly hitting the functions and the database 
 and cost.
 
 [Cloudflare][3] has a great caching service that is outrageously simple. There's really very little
-you have to do to set it up:
+that needs to be done to set it up:
 
-- You set up Cloudflare as the name servers for your domain.
-- You configure a CNAME record in Cloudflare's DNS that contains a URL that traffic should be
+- First, make Cloudflare the name server for the domain.
+- Configure a CNAME record in Cloudflare's DNS that contains a URL that traffic should be
   proxied to.
 - Requests now go to Cloudflare servers which act as a proxy.
-- If the request isn't in the cache, Cloudflare will make a request to your API and cache the
+- If the request isn't in the cache, Cloudflare will make a request to the API and cache the
   response.
-- If the request is in the cache Cloudflare returns it without ever hitting your API
+- If the request is in the cache Cloudflare returns it without ever hitting the API
 
 This works really well. The graph below is straight from the Cloudflare console and shows that the
 majority of requests are hitting the cache - roughly 92%.
@@ -74,7 +74,7 @@ it's also totally free. Cloudflare has one of the most impressive free tiers of 
 used - up to the point where I was sceptical - but their [CEO outlines some really good reasons for
 this][5].
 
-### Infinite Scale?
+# Infinite Scale?
 
 I know better than to suggest anything might actually scale infinitely, but certainly for my purposes
 the API is at a point where scale is unlikely to ever be an issue. The more users the app has the more
