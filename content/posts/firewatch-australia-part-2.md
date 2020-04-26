@@ -59,7 +59,7 @@ Cloudflare has an extensive network with [edge nodes located all over the world]
 importantly for this app, across Australia. This means Cloudflare is able to serve the content
 quickly by serving it from the location nearest the user. This network coupled with the fact the data
 is cached results in a very significant performance increase. In the screen shot below you can see
-it's 2-3 time faster when hitting the Cloudflare-backed API (firewatchaus.com) vs hitting the Cloud
+it's 2-3 times faster when hitting the Cloudflare-backed API (firewatchaus.com) vs hitting the Cloud
 Function directly.
 
 {{< image
@@ -70,7 +70,7 @@ Function directly.
 
 Remember, all I've had to do here is sign up to Cloudflare and configure my nameservers. There's
 absolutely no code required up to this point. It's really quite impressive. If that wasn't enough,
-it's also totally free. Cloudflare has one of the most impressive free tiers of any product I've
+it's also totally free. Cloudflare has one of the most extensive free tiers of any product I've
 used - up to the point where I was sceptical - but their [CEO outlines some really good reasons for
 this][5].
 
@@ -142,12 +142,12 @@ I will investigate this in the future.
 > -- Phil Karlton
 
 I don't remember how I came up with the name "Firewatch Australia" but I don't think I spent a great
-deal of time on it. Fortunately, cache invalidation for this app is also pretty easy. There's a pretty
+deal of time on it. Fortunately, cache invalidation for this app is also pretty easy. There's a
 clear trigger for invalidation - when a fire is updated and stored in the database (see the [previous
 post]({{< ref "/posts/firewatch-australia-part-1.md" >}}) for more on this).
 
 Cloudflare provides a simple API for invalidating certain URLs. This is nice because each time a fire
-changes I just need to invalidate the endpoints for that fire and the full list of fires. All other
+changes it just needs to invalidate the endpoints for that fire and the full list of fires. All other
 fires can remain in the cache. The request is as follows - you need to supply the zone-id as well as
 some authentication headers.
 

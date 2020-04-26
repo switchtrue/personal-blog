@@ -15,4 +15,8 @@ post on monitoring]({{< ref "/posts/firewatch-australia-part-4.md" >}}) to learn
 ---
 
 - Building the app with react-native and expo
+- expo builds
+- quick release cycles
+- paying for expo to speed up builds
 - OTA updates
+- review process delays
