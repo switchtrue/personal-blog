@@ -46,7 +46,7 @@ Here are some other interesting points of the implementation:
   recorded immediately.
 - Given that this requires an app to be in installed, it would seem that phone numbers shouldn't be
   mandatory and the whole process could be kept anonymous by using push notifications.
-- Name and postcode absolutely do not seem required for this to work - so free free to use fake
+- Name and postcode absolutely do not seem required for this to work - so feel free to use fake
   ones. I'd love to see the database of hilarious fake names at the end of this.
 - Daily notifications will appear on your phone so you can have confidence that the app is running
   in the background correctly.
