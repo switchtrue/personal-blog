@@ -1,6 +1,6 @@
 +++
 draft = false
-date = 2020-04-25T01:00:00+10:00
+date = 2020-04-26T14:25:00+10:00
 title = "Building Firewatch Australia, Part 2 - Scaling on the Cheap"
 description = "Using Cloudflare caching to dramatically reduce the number of requests to paid-for infrastructure."
 tags = ["Firewatch Australia", "GCP", "Cloudflare", "serverless"]
