@@ -9,7 +9,7 @@ tags = ["Firewatch Australia", "GCP", "Cloudflare", "serverless"]
 The Australian Government has just released the COVIDSafe app to help with contact tracing in
 Australia during the COVID-19 pandemic. Here's a brief outline of how it works:
 
-*Note: COVIDSafe is based on the Singapore Governments TraceTogether app and open BlueTrace
+*Note: COVIDSafe is based on the Singapore Government's TraceTogether app and open BlueTrace
 algorithm. This article assumes that COVIDSafe has not altered the implementation but until the source code becomes available it will be difficult to tell.*
 
 - Firstly, you download the app from the Play Store or App Store.
