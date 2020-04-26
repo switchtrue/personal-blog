@@ -37,7 +37,17 @@ Here are some other interesting points of the implementation:
 - You get a batch of temporary IDs from the server so that even if you have a poor or no network
   connection the app can still work by changing your temporary ID every 15 minutes and maintain
   privacy.
+- On Android the requested permissions include location. It seems that this is related to Bluetooth
+  permissions and no location data is actually obtained.
+- COVIDSafe considers "close contact" as exposure of 1.5m for a period of 15 minutes or more. The
+  distance between people is measured using Bluetooth signal strength. It's not clear if the 15
+  minute period is something that is determined on-device, and therefore temporary IDs are only
+  stored after 15 minutes or if it's something that is determined later and temporary IDs are
+  recorded immediately.
 - Given that this requires an app to be in installed, it would seem that phone numbers shouldn't be
   mandatory and the whole process could be kept anonymous by using push notifications.
 - Name and postcode absolutely do not seem required for this to work - so free free to use fake
   ones. I'd love to see the database of hilarious fake names at the end of this.
+- Daily notifications will appear on your phone so you can have confidence that the app is running
+  in the background correctly.
+
