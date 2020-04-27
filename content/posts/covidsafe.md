@@ -47,7 +47,9 @@ Here are some other interesting points of the implementation:
   distance between people is measured using Bluetooth signal strength. Seeing as the Bluetooth signal
   strength is recorded as part of the encounter and uploaded to the server if you test positive, it
   looks like the calculation of signal strength-to-distance is something that happens after
-  you test positive. The same appears true of the 15 minute encounter duration.
+  you test positive. The same appears true of the 15 minute encounter duration. Recommendation 18 of
+  the [COVIDSafe PIA](https://www.health.gov.au/resources/publications/covidsafe-application-privacy-impact-assessment)
+  would seem to confirm this.
 - Given that this requires an app to be in installed, it would seem that phone numbers shouldn't be
   mandatory and the whole process could be kept anonymous by using push notifications. At least
   making this an option would be an improvement.
