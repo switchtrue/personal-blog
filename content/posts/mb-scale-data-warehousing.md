@@ -22,11 +22,11 @@ analytics?  Do you have access to these? Is there data you know exists but you j
 To make things worse you're probably following security best practices and very
 few people (if anyone) gets access to all systems.
 
-# So how do you pull all this together?
+# So how do you make this data accessible?
 
-You engineering team is probably busy working on that new feature and they are too busy to implement
-that new change that adds a new column to your weekly report. god forbid you want a one off report
-for a bespoke use case. Want to get that data into an operational dashboard, well thats even more work.
+Your engineering team is probably busy working on that new next hot new feature and simply don't
+have time to add that new column you want to your weekly report. God forbid you need a one off data
+extract for a bespoke use case. God forbid you Want to get that data into an operational dashboard, well thats even more work.
 
 At reposit we've taken a different approach big query something something
 
